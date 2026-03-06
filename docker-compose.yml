@@ -1,0 +1,21 @@
+
+services:
+  odoo:
+    image: odoo:18
+    container_name: odoo18
+    ports:
+      - "8070:8069" # Maps host 8070 to Odoo's 8069 port (so it doesn't conflict with other Odoo instances)
+    volumes:
+      - odoo18-data:/var/lib/odoo
+      - ./addons:/mnt/extra-addons
+      - ./config/odoo.conf:/etc/odoo/odoo.conf
+      - ./logs:/var/log/odoo
+    environment:
+      - HOST=host.docker.internal # Change to your server's IP address
+      - USER=odoo
+      - PASSWORD=odoo
+    restart: always
+
+volumes:
+  odoo18-data:
+  db18-data:
