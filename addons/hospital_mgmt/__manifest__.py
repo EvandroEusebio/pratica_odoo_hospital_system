@@ -1,28 +1,21 @@
-# -*- coding: utf-8 -*-
 {
-    'name': "hospital_mgmt",
-
-    'summary': "Short (1 phrase/line) summary of the module's purpose",
-
+    'name': "Hospital Management",
+    'summary': "Gestão de leitos e prontuários de pacientes",
     'description': """
-Long description of module's purpose
+Módulo para gerenciamento hospitalar com foco em:
+- Leitos com fluxo visual por status (kanban: Livre → Ocupado → Alta)
+- Cadastro de pacientes com campos clínicos (prontuário)
     """,
+    'author': "Hospital Team",
+    'website': "https://example.com",
+    'category': 'Healthcare',
+    'version': '1.0.0',
 
-    'author': "My Company",
-    'website': "https://www.yourcompany.com",
-
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/15.0/odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
-    'category': 'Uncategorized',
-    'version': '0.1',
-
-    # any module necessary for this one to work correctly
     'depends': ['base'],
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
     ],

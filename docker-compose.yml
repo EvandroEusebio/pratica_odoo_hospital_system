@@ -4,7 +4,7 @@ services:
     image: odoo:18
     container_name: odoo18
     ports:
-      - "8070:8069" # Maps host 8070 to Odoo's 8069 port (so it doesn't conflict with other Odoo instances)
+      - "8070:8069" 
     volumes:
       - odoo18-data:/var/lib/odoo
       - ./addons:/mnt/extra-addons

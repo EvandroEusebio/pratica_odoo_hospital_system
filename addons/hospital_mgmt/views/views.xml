@@ -1,60 +1,154 @@
 <odoo>
   <data>
-    <!-- explicit list view definition -->
-<!--
-    <record model="ir.ui.view" id="hospital_mgmt.list">
-      <field name="name">hospital_mgmt list</field>
-      <field name="model">hospital_mgmt.hospital_mgmt</field>
+    <!-- ========================= -->
+    <!-- Leitos: List / Form / Kanban -->
+    <!-- ========================= -->
+
+    <record id="view_hospital_leito_list" model="ir.ui.view">
+      <field name="name">hospital.leito.list</field>
+      <field name="model">hospital.leito</field>
       <field name="arch" type="xml">
         <list>
           <field name="name"/>
-          <field name="value"/>
-          <field name="value2"/>
+          <field name="tipo"/>
+          <field name="status"/>
         </list>
       </field>
     </record>
--->
 
-    <!-- actions opening views on models -->
-<!--
-    <record model="ir.actions.act_window" id="hospital_mgmt.action_window">
-      <field name="name">hospital_mgmt window</field>
-      <field name="res_model">hospital_mgmt.hospital_mgmt</field>
-      <field name="view_mode">list,form</field>
-    </record>
--->
-
-    <!-- server action to the one above -->
-<!--
-    <record model="ir.actions.server" id="hospital_mgmt.action_server">
-      <field name="name">hospital_mgmt server</field>
-      <field name="model_id" ref="model_hospital_mgmt_hospital_mgmt"/>
-      <field name="state">code</field>
-      <field name="code">
-        action = {
-          "type": "ir.actions.act_window",
-          "view_mode": "list,form",
-          "res_model": model._name,
-        }
+    <record id="view_hospital_leito_form" model="ir.ui.view">
+      <field name="name">hospital.leito.form</field>
+      <field name="model">hospital.leito</field>
+      <field name="arch" type="xml">
+        <form string="Leito">
+          <sheet>
+            <group>
+              <field name="name"/>
+              <field name="tipo"/>
+              <field name="status"/>
+            </group>
+            <group>
+              <field name="observacao"/>
+            </group>
+          </sheet>
+        </form>
       </field>
     </record>
--->
 
-    <!-- Top menu item -->
-<!--
-    <menuitem name="hospital_mgmt" id="hospital_mgmt.menu_root"/>
--->
-    <!-- menu categories -->
-<!--
-    <menuitem name="Menu 1" id="hospital_mgmt.menu_1" parent="hospital_mgmt.menu_root"/>
-    <menuitem name="Menu 2" id="hospital_mgmt.menu_2" parent="hospital_mgmt.menu_root"/>
--->
-    <!-- actions -->
-<!--
-    <menuitem name="List" id="hospital_mgmt.menu_1_list" parent="hospital_mgmt.menu_1"
-              action="hospital_mgmt.action_window"/>
-    <menuitem name="Server to list" id="hospital_mgmt" parent="hospital_mgmt.menu_2"
-              action="hospital_mgmt.action_server"/>
--->
+    <record id="view_hospital_leito_kanban" model="ir.ui.view">
+      <field name="name">hospital.leito.kanban</field>
+      <field name="model">hospital.leito</field>
+      <field name="arch" type="xml">
+        <kanban default_group_by="status" records_draggable="1">
+          <field name="name"/>
+          <field name="tipo"/>
+          <field name="status"/>
+          <templates>
+            <t t-name="card">
+              <div class="o_kanban_card">
+                <div class="o_kanban_record_title">
+                  <strong><field name="name"/></strong>
+                </div>
+                <div>
+                  <span>Tipo: <field name="tipo"/></span>
+                </div>
+                <div>
+                  <span>Status: <field name="status"/></span>
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+
+    <record id="action_hospital_leito" model="ir.actions.act_window">
+      <field name="name">Leitos</field>
+      <field name="res_model">hospital.leito</field>
+      <field name="view_mode">kanban,list,form</field>
+      <field name="context">{'search_default_group_by_status': 1}</field>
+    </record>
+
+    <!-- ========================= -->
+    <!-- Pacientes: List / Form -->
+    <!-- ========================= -->
+
+    <record id="view_hospital_paciente_list" model="ir.ui.view">
+      <field name="name">hospital.paciente.list</field>
+      <field name="model">hospital.paciente</field>
+      <field name="arch" type="xml">
+        <list string="Pacientes">
+          <field name="name"/>
+          <field name="data_nascimento"/>
+          <field name="sexo"/>
+          <field name="tipo_sanguineo"/>
+          <field name="status_atendimento" widget="badge" decoration-info="status_atendimento == 'em_atendimento'" decoration-danger="status_atendimento == 'internado'" decoration-success="status_atendimento == 'alta'"/>
+          <field name="leito_id"/>
+          <field name="phone"/>
+        </list>
+      </field>
+    </record>
+
+    <record id="view_hospital_paciente_form" model="ir.ui.view">
+      <field name="name">hospital.paciente.form</field>
+      <field name="model">hospital.paciente</field>
+      <field name="arch" type="xml">
+        <form string="Paciente">
+          <sheet>
+            <group>
+              <group>
+                <field name="name"/>
+                <field name="data_nascimento"/>
+                <field name="sexo"/>
+                <field name="tipo_sanguineo"/>
+              </group>
+              <group>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="status_atendimento" widget="badge" decoration-info="status_atendimento == 'em_atendimento'" decoration-danger="status_atendimento == 'internado'" decoration-success="status_atendimento == 'alta'"/>
+                <field name="leito_id"/>
+              </group>
+            </group>
+            <notebook>
+              <page string="Prontuário Clínico">
+                <group>
+                  <group string="Alergias e Histórico">
+                    <field name="alergias" widget="textarea"/>
+                    <field name="historico_clinico" widget="textarea"/>
+                  </group>
+                  <group string="Diagnóstico e Prescrição">
+                    <field name="diagnostico" widget="textarea"/>
+                    <field name="prescricao" widget="textarea"/>
+                  </group>
+                </group>
+                <group>
+                  <field name="observacoes" widget="textarea"/>
+                </group>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_hospital_paciente" model="ir.actions.act_window">
+      <field name="name">Pacientes</field>
+      <field name="res_model">hospital.paciente</field>
+      <field name="view_mode">list,form</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Registe o seu primeiro paciente!
+        </p>
+      </field>
+    </record>
+
+
+    <!-- ========================= -->
+    <!-- Menus -->
+    <!-- ========================= -->
+
+    <menuitem id="menu_hospital_root" name="Hospital" sequence="10"/>
+    <menuitem id="menu_hospital_leitos" name="Leitos" parent="menu_hospital_root" action="action_hospital_leito" sequence="20"/>
+    <menuitem id="menu_hospital_pacientes" name="Pacientes" parent="menu_hospital_root" action="action_hospital_paciente" sequence="30"/>
   </data>
 </odoo>
