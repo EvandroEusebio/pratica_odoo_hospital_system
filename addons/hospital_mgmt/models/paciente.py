@@ -1,13 +1,10 @@
-from odoo import models, fields
+from odoo import fields, models
 
 
-class HospitalPaciente(models.Model):
-    _name = 'hospital.paciente'
-    _description = 'Paciente'
+class ResPartner(models.Model):
+    _inherit = 'res.partner'
 
-    name = fields.Char(string='Nome do Paciente', required=True)
-    email = fields.Char(string='Email')
-    phone = fields.Char(string='Telefone')
+    is_patient = fields.Boolean(string='É Paciente', default=False, index=True)
     data_nascimento = fields.Date(string='Data de Nascimento')
     sexo = fields.Selection([
         ('masculino', 'Masculino'),
@@ -30,7 +27,7 @@ class HospitalPaciente(models.Model):
         ('em_atendimento', 'Em Atendimento'),
         ('internado', 'Internado'),
         ('alta', 'Alta'),
-    ], string='Status do Atendimento', default='em_atendimento', required=True)
+    ], string='Status do Atendimento')
 
     leito_id = fields.Many2one(
         'hospital.leito',
