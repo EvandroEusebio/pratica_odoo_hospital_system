@@ -11,7 +11,7 @@ Módulo para gerenciamento hospitalar com foco em:
     'category': 'Healthcare',
     'version': '1.2.0',
 
-    'depends': ['base'],
+    'depends': ['base', 'mail', 'crm'],
 
     # always loaded
     'data': [

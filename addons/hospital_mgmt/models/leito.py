@@ -10,8 +10,6 @@ class HospitalLeito(models.Model):
           [
                ('livre', 'Livre'),
                ('ocupado', 'Ocupado'),
-               ('manutencao', 'Manutenção'),
-               ('alta', 'Alta'),
           ],
           string='Status',
           default='livre',

@@ -3,3 +3,4 @@
 from . import leito
 from . import paciente
 from . import agendamento
+from . import crm_lead

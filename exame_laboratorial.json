@@ -1,0 +1,19 @@
+{
+  "exames": [
+    {
+      "nome": "Joao da Silva",
+      "email": "joao.silva@example.com",
+      "telefone": "+55 11 99999-0000",
+      "data_nascimento": "1988-05-12",
+      "sexo": "masculino",
+      "tipo_sanguineo": "o+",
+      "diagnostico": "Hemograma sem alteracoes relevantes.",
+      "observacoes": "Paciente em acompanhamento ambulatorial.",
+      "resultados": {
+        "hemoglobina": 14.2,
+        "leucocitos": 7100,
+        "plaquetas": 263000
+      }
+    }
+  ]
+}

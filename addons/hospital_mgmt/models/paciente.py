@@ -34,3 +34,11 @@ class ResPartner(models.Model):
         string='Leito',
         help='Leito associado ao paciente.',
     )
+
+    laudo_ids = fields.Many2many(
+        'ir.attachment',
+        'res_partner_laudo_rel',
+        'partner_id',
+        'attachment_id',
+        string='Laudos e Exames',
+    )

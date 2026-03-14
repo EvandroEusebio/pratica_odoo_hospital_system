@@ -1,5 +1,5 @@
 from odoo import api, fields, models
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
 
 
 class HospitalAgendamento(models.Model):
@@ -100,8 +100,28 @@ class HospitalAgendamento(models.Model):
             rec.paciente_id.leito_id = rec.leito_id
             rec.paciente_id.status_atendimento = 'internado'
 
-    def action_liberar(self):
+    def _check_unpaid_invoices(self):
+        """Verifica se o paciente possui faturas não pagas."""
         for rec in self:
+            unpaid_invoices = self.env['account.move'].search([
+                ('partner_id', '=', rec.paciente_id.id),
+                ('move_type', '=', 'out_invoice'),
+                ('payment_state', 'in', ['not_paid', 'partial']),
+                ('state', '=', 'posted'),
+            ])
+            if unpaid_invoices:
+                invoice_refs = ', '.join([inv.name for inv in unpaid_invoices])
+                raise UserError(
+                    f"Não é possível dar alta ao paciente {rec.paciente_id.name}. "
+                    f"Existem faturas não pagas: {invoice_refs}"
+                )
+
+    def action_liberar(self):
+        """Libera o leito e registra a alta do paciente."""
+        for rec in self:
+            # Valida se há faturas não pagas
+            rec._check_unpaid_invoices()
+            
             rec.status = 'concluido'
             rec.leito_id.status = 'livre'
             rec.paciente_id.leito_id = False

@@ -1,0 +1,8 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^docker exec odoo18 ls -1 /var/lib/odoo/filestore$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}

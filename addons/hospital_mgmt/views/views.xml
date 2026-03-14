@@ -9,9 +9,9 @@
       <field name="model">hospital.leito</field>
       <field name="arch" type="xml">
         <list>
-          <field name="name"/>
-          <field name="tipo"/>
-          <field name="status"/>
+          <field name="name" />
+          <field name="tipo" />
+          <field name="status" />
         </list>
       </field>
     </record>
@@ -23,12 +23,12 @@
         <form string="Leito">
           <sheet>
             <group>
-              <field name="name"/>
-              <field name="tipo"/>
-              <field name="status"/>
+              <field name="name" />
+              <field name="tipo" />
+              <field name="status" />
             </group>
             <group>
-              <field name="observacao"/>
+              <field name="observacao" />
             </group>
           </sheet>
         </form>
@@ -40,20 +40,22 @@
       <field name="model">hospital.leito</field>
       <field name="arch" type="xml">
         <kanban default_group_by="status" records_draggable="1">
-          <field name="name"/>
-          <field name="tipo"/>
-          <field name="status"/>
+          <field name="name" />
+          <field name="tipo" />
+          <field name="status" />
           <templates>
             <t t-name="card">
               <div class="o_kanban_card">
                 <div class="o_kanban_record_title">
-                  <strong><field name="name"/></strong>
+                  <strong>
+                    <field name="name" />
+                  </strong>
                 </div>
                 <div>
-                  <span>Tipo: <field name="tipo"/></span>
+                  <span>Tipo: <field name="tipo" /></span>
                 </div>
                 <div>
-                  <span>Status: <field name="status"/></span>
+                  <span>Status: <field name="status" /></span>
                 </div>
               </div>
             </t>
@@ -78,13 +80,15 @@
       <field name="model">res.partner</field>
       <field name="arch" type="xml">
         <list string="Pacientes">
-          <field name="name"/>
-          <field name="data_nascimento"/>
-          <field name="sexo"/>
-          <field name="tipo_sanguineo"/>
-          <field name="status_atendimento" widget="badge" decoration-info="status_atendimento == 'em_atendimento'" decoration-danger="status_atendimento == 'internado'" decoration-success="status_atendimento == 'alta'"/>
-          <field name="leito_id"/>
-          <field name="phone"/>
+          <field name="name" />
+          <field name="data_nascimento" />
+          <field name="sexo" />
+          <field name="tipo_sanguineo" />
+          <field name="status_atendimento" widget="badge"
+            decoration-info="status_atendimento == 'em_atendimento'"
+            decoration-danger="status_atendimento == 'internado'"
+            decoration-success="status_atendimento == 'alta'" />
+          <field name="phone" />
         </list>
       </field>
     </record>
@@ -92,41 +96,62 @@
     <record id="view_hospital_paciente_form" model="ir.ui.view">
       <field name="name">hospital.paciente.form</field>
       <field name="model">res.partner</field>
+
       <field name="arch" type="xml">
         <form string="Paciente">
+
           <sheet>
-            <field name="is_patient" invisible="1"/>
+
+            <field name="is_patient" invisible="True" />
+
             <group>
               <group>
-                <field name="name"/>
-                <field name="data_nascimento"/>
-                <field name="sexo"/>
-                <field name="tipo_sanguineo"/>
+                <field name="name" />
+                <field name="data_nascimento" />
+                <field name="sexo" />
+                <field name="tipo_sanguineo" />
               </group>
+
               <group>
-                <field name="email"/>
-                <field name="phone"/>
-                <field name="status_atendimento" widget="badge" decoration-info="status_atendimento == 'em_atendimento'" decoration-danger="status_atendimento == 'internado'" decoration-success="status_atendimento == 'alta'"/>
-                <field name="leito_id"/>
+                <field name="email" />
+                <field name="phone" />
+
+                <field name="status_atendimento"
+                  widget="badge"
+                  decoration-info="status_atendimento == 'em_atendimento'"
+                  decoration-danger="status_atendimento == 'internado'"
+                  decoration-success="status_atendimento == 'alta'" />
               </group>
             </group>
+
             <notebook>
+
               <page string="Prontuário Clínico">
+
                 <group>
                   <group string="Alergias e Histórico">
-                    <field name="alergias" widget="textarea"/>
-                    <field name="historico_clinico" widget="textarea"/>
+                    <field name="alergias" />
+                    <field name="historico_clinico" />
                   </group>
+
                   <group string="Diagnóstico e Prescrição">
-                    <field name="diagnostico" widget="textarea"/>
-                    <field name="prescricao" widget="textarea"/>
+                    <field name="diagnostico" />
+                    <field name="prescricao" />
                   </group>
                 </group>
+
                 <group>
-                  <field name="observacoes" widget="textarea"/>
+                  <field name="observacoes" />
                 </group>
+
               </page>
+
+              <page string="Exames e Laudos">
+                <field name="laudo_ids" widget="many2many_binary" />
+              </page>
+
             </notebook>
+
           </sheet>
         </form>
       </field>
@@ -135,36 +160,35 @@
     <record id="view_res_partner_form_hospital_patient" model="ir.ui.view">
       <field name="name">res.partner.form.hospital.patient</field>
       <field name="model">res.partner</field>
-      <field name="inherit_id" ref="base.view_partner_form"/>
+      <field name="inherit_id" ref="base.view_partner_form" />
       <field name="arch" type="xml">
         <xpath expr="//field[@name='category_id']" position="after">
-          <field name="is_patient"/>
+          <field name="is_patient" />
         </xpath>
         <xpath expr="//sheet/notebook" position="inside">
           <page string="Paciente" invisible="not is_patient">
             <group>
               <group>
-                <field name="data_nascimento"/>
-                <field name="sexo"/>
-                <field name="tipo_sanguineo"/>
+                <field name="data_nascimento" />
+                <field name="sexo" />
+                <field name="tipo_sanguineo" />
               </group>
               <group>
-                <field name="status_atendimento"/>
-                <field name="leito_id"/>
+                <field name="status_atendimento" />
               </group>
             </group>
             <group>
               <group string="Alergias e Histórico">
-                <field name="alergias" widget="textarea"/>
-                <field name="historico_clinico" widget="textarea"/>
+                <field name="alergias" widget="textarea" />
+                <field name="historico_clinico" widget="textarea" />
               </group>
               <group string="Diagnóstico e Prescrição">
-                <field name="diagnostico" widget="textarea"/>
-                <field name="prescricao" widget="textarea"/>
+                <field name="diagnostico" widget="textarea" />
+                <field name="prescricao" widget="textarea" />
               </group>
             </group>
             <group>
-              <field name="observacoes" widget="textarea"/>
+              <field name="observacoes" widget="textarea" />
             </group>
           </page>
         </xpath>
@@ -176,7 +200,8 @@
       <field name="res_model">res.partner</field>
       <field name="view_mode">list,form</field>
       <field name="domain">[("is_patient", "=", True), ("company_type", "=", "person")]</field>
-      <field name="context">{'default_is_patient': True, 'default_company_type': 'person', 'default_status_atendimento': 'em_atendimento'}</field>
+      <field name="context">{'default_is_patient': True, 'default_company_type': 'person',
+        'default_status_atendimento': 'em_atendimento'}</field>
       <field name="help" type="html">
         <p class="o_view_nocontent_smiling_face">
           Registe o seu primeiro paciente!
@@ -185,17 +210,17 @@
     </record>
 
     <record id="action_hospital_paciente_list_view" model="ir.actions.act_window.view">
-      <field name="sequence" eval="1"/>
+      <field name="sequence" eval="1" />
       <field name="view_mode">list</field>
-      <field name="view_id" ref="view_hospital_paciente_list"/>
-      <field name="act_window_id" ref="action_hospital_paciente"/>
+      <field name="view_id" ref="view_hospital_paciente_list" />
+      <field name="act_window_id" ref="action_hospital_paciente" />
     </record>
 
     <record id="action_hospital_paciente_form_view" model="ir.actions.act_window.view">
-      <field name="sequence" eval="2"/>
+      <field name="sequence" eval="2" />
       <field name="view_mode">form</field>
-      <field name="view_id" ref="view_hospital_paciente_form"/>
-      <field name="act_window_id" ref="action_hospital_paciente"/>
+      <field name="view_id" ref="view_hospital_paciente_form" />
+      <field name="act_window_id" ref="action_hospital_paciente" />
     </record>
 
 
@@ -208,15 +233,15 @@
       <field name="model">hospital.agendamento</field>
       <field name="arch" type="xml">
         <list string="Agendamentos">
-          <field name="paciente_id"/>
-          <field name="leito_id"/>
-          <field name="data_inicio"/>
-          <field name="data_fim"/>
+          <field name="paciente_id" />
+          <field name="leito_id" />
+          <field name="data_inicio" />
+          <field name="data_fim" />
           <field name="status" widget="badge"
             decoration-info="status == 'agendado'"
             decoration-warning="status == 'em_uso'"
             decoration-success="status == 'concluido'"
-            decoration-danger="status == 'cancelado'"/>
+            decoration-danger="status == 'cancelado'" />
         </list>
       </field>
     </record>
@@ -229,29 +254,29 @@
           <header>
             <button name="action_confirmar" string="Confirmar Uso"
               type="object" class="btn-primary"
-              invisible="status != 'agendado'"/>
+              invisible="status != 'agendado'" />
             <button name="action_liberar" string="Liberar Leito"
               type="object" class="btn-secondary"
-              invisible="status != 'em_uso'"/>
+              invisible="status != 'em_uso'" />
             <button name="action_cancelar" string="Cancelar"
               type="object" class="btn-danger"
-              invisible="status in ('concluido', 'cancelado')"/>
+              invisible="status in ('concluido', 'cancelado')" />
             <field name="status" widget="statusbar"
-              statusbar_visible="agendado,em_uso,concluido"/>
+              statusbar_visible="agendado,em_uso,concluido" />
           </header>
           <sheet>
             <group>
               <group>
-                <field name="paciente_id"/>
-                <field name="leito_id"/>
+                <field name="paciente_id" />
+                <field name="leito_id" />
               </group>
               <group>
-                <field name="data_inicio"/>
-                <field name="data_fim"/>
+                <field name="data_inicio" />
+                <field name="data_fim" />
               </group>
             </group>
             <group>
-              <field name="observacoes" widget="textarea"/>
+              <field name="observacoes" widget="textarea" />
             </group>
           </sheet>
         </form>
@@ -267,9 +292,9 @@
           date_stop="data_fim"
           color="leito_id"
           mode="month">
-          <field name="paciente_id"/>
-          <field name="leito_id"/>
-          <field name="status"/>
+          <field name="paciente_id" />
+          <field name="leito_id" />
+          <field name="status" />
         </calendar>
       </field>
     </record>
@@ -289,9 +314,12 @@
     <!-- Menus -->
     <!-- ========================= -->
 
-    <menuitem id="menu_hospital_root" name="Hospital" sequence="10"/>
-    <menuitem id="menu_hospital_leitos" name="Leitos" parent="menu_hospital_root" action="action_hospital_leito" sequence="20"/>
-    <menuitem id="menu_hospital_agendamentos" name="Agendamentos" parent="menu_hospital_root" action="action_hospital_agendamento" sequence="25"/>
-    <menuitem id="menu_hospital_pacientes" name="Pacientes" parent="menu_hospital_root" action="action_hospital_paciente" sequence="30"/>
+    <menuitem id="menu_hospital_root" name="Hospital" sequence="10" />
+    <menuitem id="menu_hospital_leitos" name="Leitos" parent="menu_hospital_root"
+      action="action_hospital_leito" sequence="20" />
+    <menuitem id="menu_hospital_agendamentos" name="Agendamentos" parent="menu_hospital_root"
+      action="action_hospital_agendamento" sequence="25" />
+    <menuitem id="menu_hospital_pacientes" name="Pacientes" parent="menu_hospital_root"
+      action="action_hospital_paciente" sequence="30" />
   </data>
 </odoo>
