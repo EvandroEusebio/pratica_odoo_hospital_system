@@ -100,6 +100,13 @@
       <field name="arch" type="xml">
         <form string="Paciente">
 
+          <header>
+            <button name="%(hospital_mgmt.action_report_paciente)d"
+              string="Imprimir Relatorio"
+              type="action"
+              class="btn-primary" />
+          </header>
+
           <sheet>
 
             <field name="is_patient" invisible="True" />
@@ -199,7 +206,7 @@
       <field name="name">Pacientes</field>
       <field name="res_model">res.partner</field>
       <field name="view_mode">list,form</field>
-      <field name="domain">[("is_patient", "=", True), ("company_type", "=", "person")]</field>
+      <field name="domain">[("is_patient", "=", True), ("is_company", "=", False)]</field>
       <field name="context">{'default_is_patient': True, 'default_company_type': 'person',
         'default_status_atendimento': 'em_atendimento'}</field>
       <field name="help" type="html">

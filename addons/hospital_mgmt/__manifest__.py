@@ -17,6 +17,8 @@ Módulo para gerenciamento hospitalar com foco em:
     'data': [
         'security/ir.model.access.csv',
         'data/cron.xml',
+        'views/reports_paciente.xml',
+        'views/reports_action.xml',
         'views/views.xml',
         'views/templates.xml',
     ],

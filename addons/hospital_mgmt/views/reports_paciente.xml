@@ -1,0 +1,251 @@
+<odoo>
+    <template id="report_paciente_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <style>
+                            .hm-report {
+                                font-family: "DejaVu Sans", sans-serif;
+                                color: #1f2937;
+                            }
+
+                            .hm-header {
+                                background: #e0f2fe;
+                                color: #000000;
+                                padding: 18px 20px;
+                                border-radius: 10px;
+                                margin-bottom: 16px;
+                                text-align: center;
+                            }
+
+                            .hm-title {
+                                margin: 0;
+                                font-size: 22px;
+                                font-weight: 700;
+                                letter-spacing: 0.2px;
+                            }
+
+                            .hm-subtitle {
+                                margin: 6px 0 0 0;
+                                font-size: 12px;
+                                opacity: 0.95;
+                            }
+
+                            .hm-grid {
+                                width: 100%;
+                                border-collapse: separate;
+                                border-spacing: 0;
+                                border: 1px solid #dbe5ea;
+                                border-radius: 10px;
+                                overflow: hidden;
+                                margin-bottom: 14px;
+                            }
+
+                            .hm-grid th,
+                            .hm-grid td {
+                                padding: 9px 11px;
+                                font-size: 12px;
+                                border-bottom: 1px solid #edf2f6;
+                            }
+
+                            .hm-grid tr:last-child th,
+                            .hm-grid tr:last-child td {
+                                border-bottom: none;
+                            }
+
+                            .hm-grid th {
+                                width: 30%;
+                                text-align: left;
+                                font-weight: 700;
+                                color: #0f3b4c;
+                                background: #f4fafc;
+                            }
+
+                            .hm-badge {
+                                display: inline-block;
+                                padding: 3px 8px;
+                                border-radius: 12px;
+                                background: #e7f4ff;
+                                color: #0a5270;
+                                font-weight: 700;
+                                font-size: 11px;
+                            }
+
+                            .hm-section {
+                                border: 1px solid #dbe5ea;
+                                border-radius: 10px;
+                                padding: 12px;
+                                margin-top: 10px;
+                            }
+
+                            .hm-section-title {
+                                margin: 0 0 8px 0;
+                                font-size: 13px;
+                                font-weight: 700;
+                                color: #0f3b4c;
+                                text-transform: uppercase;
+                                letter-spacing: 0.3px;
+                            }
+
+                            .hm-text {
+                                margin: 0;
+                                font-size: 12px;
+                                line-height: 1.5;
+                                color: #374151;
+                                white-space: pre-line;
+                            }
+
+                            .hm-empty {
+                                font-size: 12px;
+                                font-style: italic;
+                                color: #6b7280;
+                            }
+                        </style>
+
+                        <div class="hm-report">
+                            <div class="hm-header">
+                                <h2 class="hm-title">Relatorio do Paciente</h2>
+                                <p class="hm-subtitle">IZATACORE MEDICAL CENTER</p>
+                            </div>
+
+                            <table class="hm-grid">
+                                <tr>
+                                    <th>Nome</th>
+                                    <td><span t-field="o.name" /></td>
+                                </tr>
+                                <tr>
+                                    <th>CPF</th>
+                                    <td>
+                                        <t t-if="o.vat">
+                                            <span t-field="o.vat" />
+                                        </t>
+                                        <t t-else="">
+                                            <span class="hm-empty">Nao informado</span>
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Data de Nascimento</th>
+                                    <td>
+                                        <t t-if="o.data_nascimento">
+                                            <span t-field="o.data_nascimento" />
+                                        </t>
+                                        <t t-else="">
+                                            <span class="hm-empty">Nao informado</span>
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Sexo</th>
+                                    <td>
+                                        <t t-if="o.sexo">
+                                            <span t-field="o.sexo" />
+                                        </t>
+                                        <t t-else="">
+                                            <span class="hm-empty">Nao informado</span>
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Tipo Sanguineo</th>
+                                    <td>
+                                        <t t-if="o.tipo_sanguineo">
+                                            <span class="hm-badge" t-field="o.tipo_sanguineo" />
+                                        </t>
+                                        <t t-else="">
+                                            <span class="hm-empty">Nao informado</span>
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Status do Atendimento</th>
+                                    <td>
+                                        <t t-if="o.status_atendimento">
+                                            <span class="hm-badge" t-field="o.status_atendimento" />
+                                        </t>
+                                        <t t-else="">
+                                            <span class="hm-empty">Nao informado</span>
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>E-mail</th>
+                                    <td>
+                                        <t t-if="o.email">
+                                            <span t-field="o.email" />
+                                        </t>
+                                        <t t-else="">
+                                            <span class="hm-empty">Nao informado</span>
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Telefone</th>
+                                    <td>
+                                        <t t-if="o.phone">
+                                            <span t-field="o.phone" />
+                                        </t>
+                                        <t t-else="">
+                                            <span class="hm-empty">Nao informado</span>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <div class="hm-section">
+                                <p class="hm-section-title">Alergias</p>
+                                <t t-if="o.alergias">
+                                    <p class="hm-text" t-field="o.alergias" />
+                                </t>
+                                <t t-else="">
+                                    <p class="hm-empty">Sem alergias registradas.</p>
+                                </t>
+                            </div>
+
+                            <div class="hm-section">
+                                <p class="hm-section-title">Historico Clinico</p>
+                                <t t-if="o.historico_clinico">
+                                    <p class="hm-text" t-field="o.historico_clinico" />
+                                </t>
+                                <t t-else="">
+                                    <p class="hm-empty">Sem historico clinico registrado.</p>
+                                </t>
+                            </div>
+
+                            <div class="hm-section">
+                                <p class="hm-section-title">Diagnostico</p>
+                                <t t-if="o.diagnostico">
+                                    <p class="hm-text" t-field="o.diagnostico" />
+                                </t>
+                                <t t-else="">
+                                    <p class="hm-empty">Sem diagnostico registrado.</p>
+                                </t>
+                            </div>
+
+                            <div class="hm-section">
+                                <p class="hm-section-title">Prescricao</p>
+                                <t t-if="o.prescricao">
+                                    <p class="hm-text" t-field="o.prescricao" />
+                                </t>
+                                <t t-else="">
+                                    <p class="hm-empty">Sem prescricao registrada.</p>
+                                </t>
+                            </div>
+
+                            <div class="hm-section">
+                                <p class="hm-section-title">Observacoes</p>
+                                <t t-if="o.observacoes">
+                                    <p class="hm-text" t-field="o.observacoes" />
+                                </t>
+                                <t t-else="">
+                                    <p class="hm-empty">Sem observacoes adicionais.</p>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
